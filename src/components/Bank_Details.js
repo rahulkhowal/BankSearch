@@ -48,7 +48,7 @@ const BankDetails=(props)=>{
           console.log(response);
           //<Bank_List response={response}/>
           setList([...response.data])
-          setNewtable([...response.data])
+          //setNewtable([...response.data])
           console.log(list)
           console.log(response.data)
           if (response.data.length > 0) {
@@ -64,10 +64,10 @@ const BankDetails=(props)=>{
       };
     const searchHandler = event => {
       
-        if(event.target.value===undefined||''||null){
+        /*if(event.target.value===undefined||''||null){
             setList([...newtable])
         }
-        else{
+        else{*/
         setTerm(event.target.value);
         console.log(term)
         let NewList=list
@@ -75,8 +75,9 @@ const BankDetails=(props)=>{
             return item.bank_name.toLowerCase().search(
               term.toLowerCase()) !== -1;
           });
-          setList([...NewList])
-        }
+          console.log(NewList)
+          setNewtable([...NewList])
+        //}
       };
     
     
@@ -110,7 +111,7 @@ return(
           />
         </div>
      </div>
-        <BankList list_bank={list}/> 
+        <BankList list_bank={list} filterList={newtable}/> 
       </Fragment> 
     )
 }

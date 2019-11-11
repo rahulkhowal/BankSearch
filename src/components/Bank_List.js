@@ -151,7 +151,17 @@ const handleFavourite=({row})=>{
             </TableRow>
           </TableBody>
           <TableBody>
-            {props.list_bank.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+            {(props.filterList.length) ? props.filterList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+              <TableRow hover key={index}>
+                <TableCell component="th" scope="row">
+                {Object.keys(localStorage).includes(row.ifsc) ? <FavoriteIcon style={{color:'red'}} onClick={()=>handleUnFavourite({row})}/>:<FavoriteBorderIcon onClick={()=>handleFavourite({row})}/>}
+                </TableCell>
+                <TableCell >{row.branch}</TableCell>
+                <TableCell >{row.bank_name}</TableCell>       
+                <TableCell >{row.state}</TableCell>       
+                <TableCell >{row.address}</TableCell>       
+              </TableRow>    
+            )) : props.list_bank.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
               <TableRow hover key={index}>
                 <TableCell component="th" scope="row">
                 {Object.keys(localStorage).includes(row.ifsc) ? <FavoriteIcon style={{color:'red'}} onClick={()=>handleUnFavourite({row})}/>:<FavoriteBorderIcon onClick={()=>handleFavourite({row})}/>}
@@ -169,7 +179,7 @@ const handleFavourite=({row})=>{
               <TablePagination
                 rowsPerPageOptions={[50, 75, 100, { label: 'All', value: -1 }]}
                 colSpan={3}
-                count={props.list_bank.length}
+                count={props.filterList.length ? props.filterList.length:props.list_bank.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 
